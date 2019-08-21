@@ -3,6 +3,8 @@ from socket import gethostname, gethostbyname
 from subprocess import check_output
 from sys import stdout
 from time import sleep
+import pwd
+import os
 
 from psutil import disk_usage, sensors_battery
 from psutil._common import bytes2human
@@ -18,8 +20,9 @@ def write(data: str):
 
 
 def fetch_data():
+    name = pwd.getpwuid( os.getuid() ).pw_name
     disk_root = bytes2human(disk_usage('/').free)
-    disk_home = bytes2human(disk_usage('/home/aa545@i04.local').free)
+    disk_home = bytes2human(disk_usage(f'/home/{name}').free)
     # ip = gethostbyname(gethostname()) # Unused for now
     try:
         ssid = check_output('nmcli -g CONNECTION,TYPE d | grep wifi', shell=True).strip().decode('utf-8').split(':')[0]
