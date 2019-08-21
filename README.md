@@ -14,3 +14,7 @@ bar {
     }
 }
 ``` 
+
+## sway_config
+Should be renamed to `config` and placed in `~/.config/sway/`
+General sway config. Very work in progress. Some custom keybinds and a very specific worspace handling for my dock. 
