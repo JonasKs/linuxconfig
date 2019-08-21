@@ -6,7 +6,7 @@ Add the following config to your ~/.config/sway/config:
 ```py
 bar {
     position top
-    status_command python3.7 ~/Documents/projects/linuxconfig/statusbar.py
+    status_command python3.7 ~/path/to/statusbar.py
     colors {
         statusline #ffffff
         background #323232
