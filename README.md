@@ -14,6 +14,7 @@ bar {
     }
 }
 ``` 
+Remember to install `pip install -r requirements.txt`  
 
 ## sway_config
 Should be renamed to `config` and placed in `~/.config/sway/`
