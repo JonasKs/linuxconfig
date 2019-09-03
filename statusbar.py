@@ -42,7 +42,11 @@ def fetch_data():
     date = datetime.now().strftime('%h %d %A %H:%M')
     sound = get_sound()
     cpu = cpu_percent()
+    if len(str(cpu)) == 3:
+        cpu = f'0{cpu}'
     memory = virtual_memory()._asdict()['percent']
+    if len(str(memory)) == 3:
+        memory = f'0{memory}'
     formatted = f'💾: {disk_root}/home/{disk_home} ' \
         f'| CPU: {cpu}% ' \
         f'Mem: {memory}% ' \
