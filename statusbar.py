@@ -1,5 +1,6 @@
 import os
 import pwd
+import re
 from datetime import datetime
 from socket import gethostname, gethostbyname
 from subprocess import check_output
@@ -8,7 +9,6 @@ from time import sleep
 
 from psutil import disk_usage, sensors_battery, cpu_percent, virtual_memory
 from psutil._common import bytes2human
-import re
 
 
 def write(data: str):
@@ -48,12 +48,12 @@ def fetch_data():
     if len(str(memory)) == 3:
         memory = f'0{memory}'
     formatted = f'💾: {disk_root}/home/{disk_home} ' \
-        f'| CPU: {cpu}% ' \
-        f'Mem: {memory}% ' \
-        f'| {sound} ' \
-        f'| {ssid} {formatted_bars} ' \
-        f'| {battery}% {status} ' \
-        f'| {date}'
+                f'| CPU: {cpu}% ' \
+                f'Mem: {memory}% ' \
+                f'| {sound} ' \
+                f'| {ssid} {formatted_bars} ' \
+                f'| {battery}% {status} ' \
+                f'| {date}'
     return formatted
 
 

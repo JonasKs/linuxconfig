@@ -11,6 +11,7 @@ set $mod Mod4
 
 # Laptop screen
 set $laptop eDP-1
+#
 
 # Home row direction keys, like vim
 set $left h
@@ -52,11 +53,11 @@ output * bg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png 
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' \
-#               resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+    timeout 300 'swaylock -f -i ~/Pictures/tux1440p.jpg' \
+    timeout 600 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep 'swaylock -f -i ~/Pictures/tux1440p.jpg'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -116,13 +117,13 @@ output * bg /usr/local/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png 
 # Custom keybinds>
 #
     # Lock screen with mod, shift l
-    bindsym $mod+Shift+Alt+l exec swaylock -c 000000
+    bindsym $mod+Shift+Alt+l exec swaylock -i "~/Pictures/tux1440p.jpg" -s fit
 
     # Print screen commands. Alt and print is region
     set $screenshot_file \"$HOME/Pictures/screenshot-$(date '+%Y-%m-%d_%H-%M-%S').png\"
     bindsym Print exec grim -s1 $screenshot_file
-    bindsym Alt+Print exec (slurp | grim -g- -s1 $screenshot_file)
-    
+    # bindsym Alt+Print exec (slurp | grim -g- -s1 $screenshot_file | wl-copy)
+    bindsym Alt+Print exec (slurp | grim -g - - | wl-copy)
     # Volume commands
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ $(printf "%s\n" 100 $(($(pacmd dump-volumes | grep -m1 Sink | grep -Po '\d+(?=%)' | head -n1) + 3)) | sort -g | head -n1)%
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -3%
@@ -212,6 +213,8 @@ focus_follows_mouse yes
     gaps inner 10
     gaps outer 0
     smart_gaps on
+    # Borders
+    default_border pixel 0
 #
 # Scratchpad:
 #
@@ -248,8 +251,6 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
-
-#
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
@@ -259,21 +260,13 @@ bar {
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
     # status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-    status_command python3.7 ~/Documents/projects/linuxconfig/statusbar.py
+    status_command python3.7 ~/Documents/projects/personal/linuxconfig/statusbar.py
     colors {
         statusline #ffffff
         background #323232
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }
-
-# This starts swayidle with Sway, and anable auto locking and monitor poweroff
-#exec swayidle -w \
-#         timeout 600 'swaylock -f -c 000000' \
-#         timeout 300 'swaymsg "output * dpms off"' \
-#              resume 'swaymsg "output * dpms on"' \
-#         before-sleep 'swaylock -f -c 000000'
-
 # This starts Mako with Sway
 exec mako
 
