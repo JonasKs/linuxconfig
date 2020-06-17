@@ -47,14 +47,13 @@ def fetch_data():
     memory = virtual_memory()._asdict()['percent']
     if len(str(memory)) == 3:
         memory = f'0{memory}'
-    formatted = f'💾: {disk_root}/home/{disk_home} ' \
+    return f'💾: {disk_root}/home/{disk_home} ' \
                 f'| CPU: {cpu}% ' \
                 f'Mem: {memory}% ' \
                 f'| {sound} ' \
                 f'| {ssid} {formatted_bars} ' \
                 f'| {battery}% {status} ' \
                 f'| {date}'
-    return formatted
 
 
 def get_sound():
